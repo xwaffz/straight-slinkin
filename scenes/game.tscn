@@ -250,7 +250,6 @@ theme_override_font_sizes/font_size = 8
 
 [node name="Player" parent="." instance=ExtResource("1_nde3s")]
 z_index = 5
-start_level = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(4, 11)

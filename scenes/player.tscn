@@ -148,3 +148,5 @@ one_way_collision_margin = 0.0
 [node name="CoyoteTimer" type="Timer" parent="."]
 wait_time = 0.15
 one_shot = true
+
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
