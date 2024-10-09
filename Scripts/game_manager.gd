@@ -2,16 +2,18 @@ extends Node
 
 var score = 0
 @onready var end_label: Label = $"End Label"
-@onready var label: Label = $"../Player/Camera2D/Label"
+
 var time = 0.0
 var stopped = false
 @onready var timer: Label = $"../Player/Camera2D/Timer"
+@onready var label: Label = $"../Player/Camera2D/Coin Counter"
 
 func _process(delta):
-	update_stopwatch_label()
 	if stopped:
 		return
-	time += delta
+	else:
+		update_stopwatch_label()
+		time += delta
 
 func update_stopwatch_label():
 	timer.text = time_to_string()
@@ -34,5 +36,4 @@ func add_point():
 func stop_stopwatch():
 	stopped = true
 	end_label.text = "                    Congrats! \n You Finished in " + timer.text + " Seconds!"
-	timer.text = end_label.text
 	

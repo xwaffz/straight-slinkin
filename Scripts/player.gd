@@ -17,7 +17,6 @@ var last_direction = 0  # Track the last direction
 
 func _on_coyote_timer_timeout():
 	coyote = false
-	print("helloo")
 
 func _ready() -> void:
 	coyote_timer.wait_time = 0.15
@@ -57,7 +56,6 @@ func _physics_process(delta:float) -> void:
 	if !is_on_floor() and was_on_floor and velocity.y >= 0:
 		coyote = true
 		coyote_timer.start()
-		print("hi")
 
 	# Play animations
 	if is_on_floor():
