@@ -1,0 +1,155 @@
+[gd_scene load_steps=12 format=3 uid="uid://bqmgfvdbd342v"]
+
+[ext_resource type="Script" path="res://Scripts/coin.gd" id="1_151mc"]
+[ext_resource type="Texture2D" uid="uid://c3oewoxlwkni3" path="res://assets/2D Pixel Dungeon Asset Pack/items and trap_animation/coin/coin_1.png" id="1_rn7xu"]
+[ext_resource type="Texture2D" uid="uid://qxk7v0jhgj3e" path="res://assets/2D Pixel Dungeon Asset Pack/items and trap_animation/coin/coin_2.png" id="2_aa2s4"]
+[ext_resource type="Texture2D" uid="uid://tyu78ead3kvy" path="res://assets/2D Pixel Dungeon Asset Pack/items and trap_animation/coin/coin_3.png" id="3_w5h0h"]
+[ext_resource type="Texture2D" uid="uid://drv62m40mdsjx" path="res://assets/2D Pixel Dungeon Asset Pack/items and trap_animation/coin/coin_4.png" id="4_gb745"]
+[ext_resource type="AudioStream" uid="uid://dteys12rmlono" path="res://assets/brackeys_platformer_assets/sounds/coin.wav" id="6_8vyrl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ll81n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_rn7xu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_aa2s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w5h0h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gb745")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lcwih"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_pr1ht"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickupSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uuj14"]
+resource_name = "picup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PickupSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.966667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8k0sr"]
+_data = {
+"RESET": SubResource("Animation_pr1ht"),
+"picup": SubResource("Animation_uuj14")
+}
+
+[node name="Coin" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_151mc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ll81n")
+autoplay = "default"
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lcwih")
+
+[node name="Pickup" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_8vyrl")
+
+[node name="PickupSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_8vyrl")
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8k0sr")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

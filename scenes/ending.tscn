@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dric0131le1id"]
+
+[ext_resource type="Texture2D" uid="uid://b4poo7tr63irn" path="res://assets/2D Pixel Dungeon Asset Pack/character and tileset/Dungeon_Tileset.png" id="1_iqveq"]
+[ext_resource type="Script" path="res://Scripts/ending.gd" id="1_uxckj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srj2g"]
+size = Vector2(14, 13)
+
+[node name="ending" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_uxckj")
+
+[node name="ending" type="Sprite2D" parent="."]
+texture = ExtResource("1_iqveq")
+region_enabled = true
+region_rect = Rect2(64, 114, 16, 14)
+
+[node name="ending2" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_srj2g")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

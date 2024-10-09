@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://byc3qx18krb6h"]
+
+[ext_resource type="Script" path="res://Scripts/orc.gd" id="1_046fx"]
+[ext_resource type="Texture2D" uid="uid://wqpwnxxcm6v4" path="res://assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc-Walk.png" id="2_mf8vv"]
+[ext_resource type="PackedScene" uid="uid://dav4c1mcrphjc" path="res://scenes/kill_zone.tscn" id="2_ovypu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1xcr"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbtf5"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37f5v"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sv83"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvor2"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ct7u"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tpyk"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(600, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46148"]
+atlas = ExtResource("2_mf8vv")
+region = Rect2(700, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5jc7q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1xcr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbtf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37f5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sv83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jvor2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ct7u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tpyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46148")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orben"]
+size = Vector2(6, 15)
+
+[node name="Orc" type="Node2D"]
+script = ExtResource("1_046fx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5jc7q")
+autoplay = "default"
+frame_progress = 0.34287
+
+[node name="KillZone" parent="AnimatedSprite2D" instance=ExtResource("2_ovypu")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/KillZone"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_orben")
+
+[node name="RayCast Right" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
+target_position = Vector2(15, 0)
+
+[node name="RayCast Left" type="RayCast2D" parent="."]
+position = Vector2(1, 0)
+target_position = Vector2(-10, 0)
